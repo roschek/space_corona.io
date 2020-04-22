@@ -1,0 +1,49 @@
+@keyframes moveSlideShow {
+  100% {
+    background-position: -5000px 0;
+  }
+}
+
+@keyframes moveMeteor {
+  0% {
+    right:0;
+    
+  }
+  100% {
+    right:100%;
+    
+  }
+
+}
+*{
+  box-sizing: border-box;
+  max-width: 100%;
+  margin:0;
+}
+
+.body{
+  position: relative;
+  background-image: url('images/s1200.jpg');
+  background-size: cover;
+  width:1440px;
+  height: 100%;
+  
+}
+
+.body__animation{
+  animation: moveSlideShow 20s linear infinite;
+}
+
+.ship{
+  position:absolute;
+  max-width: 150px;
+
+}
+
+.meteor {
+  right:10px;
+  position: absolute;
+  max-width: 50px;
+  z-index: -100;
+  animation: moveMeteor 5s linear  infinite;
+}
