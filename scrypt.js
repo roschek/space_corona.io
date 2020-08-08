@@ -1,81 +1,101 @@
-const ship = document.querySelector('.ship');
-const body = document.querySelector('body');
-const div = document.querySelector('div');
-const meteor = document.querySelector('meteor');
+/*
+ToDo:
+1. анимация игрока; -done
+2. анимация мишеней;
+3. реализация выстрелов; - done
 
-let moveLeft = 0;
-let moveDown = 0;
+*/
 
-
-//получаем случайное число 
-
-function randomInteger(min,max) {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
+const player = document.querySelector('.player')
+const enemy = document.querySelector('.enemy')
+    //случайное число
+function getRandomInt(min, max) {
+    let rand = min + Math.random() * (max + 1 - min)
+    return Math.floor(rand);
 }
 
- // функция добавления  коронавируса 
-function createMeteor() {
-  const createMeteorit = document.createElement('img');
-  createMeteorit.setAttribute('src','images/coronavirus_PNG39.png');
-  createMeteorit.classList.add('meteor');
-  createMeteorit.style.top = `${randomInteger(0,550)+'px'}`;
-  div.appendChild(createMeteorit);
-  
-};
+document.addEventListener('keydown', function(evt) {
+    switch (evt.keyCode) {
+        case 87: //нажали вверх
+            if (player.offsetTop >= 0) {
+                player.style.top = player.offsetTop - 25 + 'px'
+            } else { player.style.top = 0 }
+            break;
+        case 83: //нажали вниз 
+            player.style.top = player.offsetTop + 25 + 'px'
+            break;
+        case 68: //движение вправо   
+            if (player.offsetLeft <= document.body.clientWidth - 200) { player.style.left = player.offsetLeft + 15 + 'px' } else { player.style.left = document.body.clientWidth - 200 }
+            break;
+        case 65: // движение влево
+            if (player.offsetLeft >= 0) {
+                player.style.left = player.offsetLeft - 15 + 'px'
+            } else { player.style.left = 0 }
+            break;
+        case 32: //нажали пробел
+            createBullet()
+            break;
+    }
+})
+setInterval(createEnemy(), 100)
 
-setInterval(createMeteor, 3000);
-
-
-// управление кораблем
-document.onkeydown = function (event) {
-
-  if (event.key == 'ArrowRight') {
-    if (moveLeft < (window.innerWidth - 100)) {
-      ship.style.left = moveLeft + 'px';
-      moveLeft = moveLeft + 10;
-    }
-    else {
-      ship.style.left = moveLeft + 'px';
-      moveLeft = moveLeft - 10;
-    }
-
-  }
-  if (event.key == 'ArrowLeft') {
-    if (moveLeft >= 0) {
-      ship.style.left = (moveLeft - 10) + 'px';
-      moveLeft = moveLeft - 10;
-    }
-    else {
-      ship.style.left = moveLeft + 'px';
-      moveLeft = moveLeft + 10;
-    }
-  }
-  if (event.key == 'ArrowDown') {
-    if (moveDown < (window.innerHeight - 100)) {
-      ship.style.top = moveDown + 'px';
-      moveDown = moveDown + 10;
-    }
-    else {
-      ship.style.top = (moveDown - 10) + 'px';
-      moveDown = moveDown - 10;
-    }
-  }
-  if (event.key == 'ArrowUp') {
-    if (moveDown > 0) {
-      ship.style.top = (moveDown - 10) + 'px';
-      moveDown = moveDown - 10;
-    }
-    else {
-      ship.style.top = moveDown + 'px';
-      moveDown = moveDown + 10;
-    }
-  }
+function createBullet() {
+    let bullet = document.createElement('div');
+    bullet.className = "bullet";
+    bullet.style.top = player.offsetTop + 80 + 'px'
+    bullet.style.left = player.offsetLeft + 200 + 'px'
+    document.body.appendChild(bullet)
+    bulletMove(bullet)
 }
 
-if ((position("ship")-position("meteor")>0 && position("ship")-position("meteor")<50)){
-  const createMeteorit = document.createElement('img');
-  createMeteorit.setAttribute('src','images/coronavirus_PNG39.png');
-  createMeteorit.style.top = `${250+'px'}`;
-  div.appendChild(createMeteorit);
-};
+function bulletMove(bullet) {
+    let timer = setInterval(function() {
+        bullet.style.left = bullet.offsetLeft + 10 + 'px';
+        shot(bullet)
+        if (bullet.offsetLeft > document.body.clientWidth - 50) {
+            bullet.remove();
+            clearInterval(timer)
+        }
+    }, 10)
+
+}
+
+function shot(bullet, timer) {
+    let bulletPos = bullet.offsetTop;
+    let bulletRight = bullet.offsetLeft;
+    let enemy = document.querySelector('.enemy')
+    if (enemy != null) {
+        let enemyTop = enemy.offsetTop;
+        let enemyBottom = enemy.offsetTop + enemy.offsetHeight;
+        let enemyLeft = enemy.offsetLeft;
+        if (bulletPos >= enemyTop && bulletPos <= enemyBottom && bulletRight >= enemyLeft) {
+            enemy.className = 'boom';
+            enemy.style.top = enemyTop + 'px'
+            enemy.style.left = enemyLeft + 'px'
+            clearInterval(enemy.dataset.timer)
+            setTimeout(function() {
+                enemy.remove()
+                createEnemy()
+                clearInterval(timer)
+            }, 1000)
+        }
+    }
+
+}
+
+function createEnemy() {
+    let enemy = document.createElement('div');
+    enemy.className = 'enemy';
+    enemy.style.left = document.body.clientWidth - 50 + 'px';
+    enemy.style.top = getRandomInt(0, document.body.offsetHeight - 100) + 'px'
+    document.body.appendChild(enemy);
+    let timerId = setInterval(function() {
+        enemy.style.left = enemy.offsetLeft - 5 + 'px'
+        if (enemy.offsetLeft < 0) {
+            enemy.remove();
+            clearInterval(timerId)
+            createEnemy()
+        }
+    }, 30)
+    enemy.dataset.timer = timerId
+}

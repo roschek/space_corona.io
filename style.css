@@ -1,49 +1,54 @@
-@keyframes moveSlideShow {
-  100% {
-    background-position: -5000px 0;
-  }
+.body {
+    position: relative;
+    padding-top: 550px;
+    height: 100%;
+    width: 99%;
+    background-image: url('./images/s1200.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-@keyframes moveMeteor {
-  0% {
-    right:0;
-    
-  }
-  100% {
-    right:100%;
-    
-  }
-
-}
-*{
-  box-sizing: border-box;
-  max-width: 100%;
-  margin:0;
+.player {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    width: 200px;
+    height: 200px;
+    background-image: url('./images/spaceship-3591503__480.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.body{
-  position: relative;
-  background-image: url('images/s1200.jpg');
-  background-size: cover;
-  width:1440px;
-  height: 100%;
-  
+.enemy {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url('./images/coronavirus_PNG39.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.body__animation{
-  animation: moveSlideShow 20s linear infinite;
+.bullet {
+    position: absolute;
+    right: 40%;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    background-image: url('./images/bullet.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.ship{
-  position:absolute;
-  max-width: 150px;
-
-}
-
-.meteor {
-  right:10px;
-  position: absolute;
-  max-width: 50px;
-  z-index: -100;
-  animation: moveMeteor 5s linear  infinite;
+.boom {
+    position: absolute;
+    background-image: url('./images/boom.gif');
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
