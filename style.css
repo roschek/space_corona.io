@@ -1,193 +1,284 @@
-.body {
-    position: relative;
-    padding-top: 550px;
-    height: 100%;
-    width: 99%;
-    background-image: url('./images/s1200.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.body__end {
-    background-color: black;
-    width: 100%;
-    height: 100;
-    opacity: .1;
-    z-index: 10;
-}
-
-.player {
-    position: absolute;
-    left: 50px;
-    top: 50%;
-    width: 200px;
-    height: 200px;
-    background-image: url('./images/spaceship-3591503__480.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.enemy {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background-image: url('./images/coronavirus_PNG39.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.bullet {
-    position: absolute;
-    right: 40%;
-    top: 50%;
-    width: 50px;
-    height: 50px;
-    background-image: url('./images/bullet.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.boom {
-    position: absolute;
-    background-image: url('./images/boom.gif');
-    width: 100px;
-    height: 100px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.hearts {
-    position: absolute;
-    top: 40px;
-    right: 10%;
-    display: flex;
-    width: 200px;
-    height: 40px;
-    justify-content: space-between;
-}
-
-.heart {
-    height: 40px;
-    width: 40px;
-    background-image: url('./images/11-118778_red-and-black-heart.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.game__over {
-    position: absolute;
-    font-size: 64px;
-    font-weight: bold;
-    top: 50%;
-    left: 30%;
-    display: block;
-    color: rgb(102, 13, 13);
-    z-index: 20;
-    opacity: 0;
-    display: none;
-}
-
-.game__over-active {
-    display: block;
-}
-
-.arrow-left-1,
-.arrow-right-1,
-.arrow-top-1,
-.arrow-bottom-1 {
-    margin: 20px 8px;
-    border-radius: 50%;
-    border: 2px solid #337AB7;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    box-shadow: 0 0 12px 4px #BFE2FF;
-    background: radial-gradient(#fff, #BFE2FF);
-    cursor: pointer;
-    outline: none;
-}
-
-.arrow-left-1 path,
-.arrow-right-1 path,
-.arrow-top-1 path,
-.arrow-bottom-1 path {
-    fill: rgba(191, 226, 255, 0.6);
-    stroke-width: 2;
-    stroke: #337AB7;
-    transition: fill 0.5s ease-out;
-}
-
-.arrow-right-1 {
-    transform: rotate(180deg);
-    position: absolute;
-    top: 25%;
-    right: 10px;
-}
-
-.arrow-top-1 {
-    position: absolute;
-    top: 5px;
-    left: 35%;
-    transform: rotate(90deg);
-}
-
-.arrow-bottom-1 {
-    transform: rotate(270deg);
-    position: absolute;
-    bottom: 5px;
-    left: 35%;
-}
-
-.arrow-left-1 {
-    position: absolute;
-    top: 25%;
-    left: 10px;
-}
-
-.arrow-left-1:hover path,
-.arrow-right-1:hover path,
-.arrow-top-1:hover path,
-.arrow-bottom-1:hover path {
-    fill: #337AB7;
-}
-
-.buttons {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    left: 0;
-    bottom: 0;
-    margin-left: 20px;
-}
-
-.fire {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    cursor: pointer;
-    position: absolute;
-    bottom: 60px;
-    right: 50px;
-    transition: .2s;
-}
-
-.fire:hover {
-    transform: scale(1.2, 1.2);
-}
-
-.score {
-    position: absolute;
-    top: 40px;
-    left: 30%;
-    color: red;
-    font-size: 64px;
-    font-weight: bold;
-    display: block;
-}
+    .body {
+        position: relative;
+        padding-top: 550px;
+        height: 100%;
+        width: 100%;
+        background-image: url('./images/s1200.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .body__end {
+        background-color: black;
+        width: 100%;
+        height: 100;
+        opacity: .1;
+        z-index: 10;
+    }
+    
+    .header {
+        position: fixed;
+        top: 0;
+        display: flex;
+        width: 90%;
+        margin: 20px auto;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    
+    .player {
+        position: absolute;
+        left: 50px;
+        top: 50%;
+        width: 200px;
+        height: 200px;
+        background-image: url('./images/spaceship-3591503__480.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    .enemy {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background-image: url('./images/coronavirus_PNG39.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    .bullet {
+        position: absolute;
+        right: 40%;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        background-image: url('./images/bullet.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    .boom {
+        position: absolute;
+        background-image: url('./images/boom.gif');
+        width: 100px;
+        height: 100px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    
+    .hearts {
+        display: flex;
+        padding: 20px;
+        max-width: 200px;
+        height: 40px;
+        justify-content: space-between;
+    }
+    
+    .heart {
+        height: 40px;
+        width: 40px;
+        background-image: url('./images/11-118778_red-and-black-heart.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    .arrow-left-1,
+    .arrow-right-1,
+    .arrow-top-1,
+    .arrow-bottom-1 {
+        margin: 20px 8px;
+        border-radius: 50%;
+        border: 2px solid #337AB7;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        box-shadow: 0 0 12px 4px #BFE2FF;
+        background: radial-gradient(#fff, #BFE2FF);
+        cursor: pointer;
+        outline: none;
+    }
+    
+    .arrow-left-1 path,
+    .arrow-right-1 path,
+    .arrow-top-1 path,
+    .arrow-bottom-1 path {
+        fill: rgba(191, 226, 255, 0.6);
+        stroke-width: 2;
+        stroke: #337AB7;
+        transition: fill 0.5s ease-out;
+    }
+    
+    .arrow-right-1 {
+        transform: rotate(180deg);
+        position: absolute;
+        top: 25%;
+        right: 10px;
+    }
+    
+    .arrow-top-1 {
+        position: absolute;
+        top: 5px;
+        left: 35%;
+        transform: rotate(90deg);
+    }
+    
+    .arrow-bottom-1 {
+        transform: rotate(270deg);
+        position: absolute;
+        bottom: 5px;
+        left: 35%;
+    }
+    
+    .arrow-left-1 {
+        position: absolute;
+        top: 25%;
+        left: 10px;
+    }
+    
+    .arrow-left-1:hover path,
+    .arrow-right-1:hover path,
+    .arrow-top-1:hover path,
+    .arrow-bottom-1:hover path {
+        fill: #337AB7;
+    }
+    
+    .buttons {
+        display: block;
+        width: 200px;
+        height: 200px;
+        position: relative;
+        margin-bottom: 40px;
+    }
+    
+    .fire {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-top: 40px;
+        transition: .2s;
+        margin-right: 50px;
+    }
+    
+    .fire:hover {
+        transform: scale(1.2, 1.2);
+    }
+    
+    .score {
+        color: red;
+        font-size: 64px;
+        font-weight: bold;
+        display: block;
+    }
+    
+    .footer {
+        padding-bottom: 30px;
+        display: flex;
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    @media screen and (max-width: 760px) {
+        .player {
+            position: absolute;
+            left: 20px;
+            top: 30%;
+            width: 100px;
+            height: 100px;
+        }
+        .enemy {
+            width: 40px;
+            height: 40px;
+        }
+        .bullet {
+            width: 20px;
+            height: 20px;
+        }
+        .boom {
+            width: 50px;
+            height: 50px;
+        }
+        .hearts {
+            padding: 10px;
+            max-width: 100px;
+            height: 30px;
+            justify-content: space-between;
+        }
+        .heart {
+            height: 20px;
+            width: 20px;
+        }
+        .arrow-left-1,
+        .arrow-right-1,
+        .arrow-top-1,
+        .arrow-bottom-1 {
+            margin: 0;
+            border-radius: 50%;
+            border: 1px solid #337AB7;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 12px 2px #BFE2FF;
+        }
+        .buttons {
+            display: block;
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        .fire {
+            width: 25px;
+            height: 25px;
+            object-fit: cover;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .score {
+            font-size: 32px;
+        }
+        .footer {
+            padding-bottom: 0;
+            display: flex;
+            flex-direction: row;
+            position: fixed;
+            bottom: 0;
+            justify-content: space-between;
+            width: 100%;
+            margin: 0 auto;
+            padding-left: 30px;
+            background-color: black;
+        }
+        .arrow-right-1 {
+            top: 35%;
+            right: 10px;
+        }
+        .arrow-top-1 {
+            position: absolute;
+            top: 15px;
+            left: 35%;
+            transform: rotate(90deg);
+        }
+        .arrow-bottom-1 {
+            transform: rotate(270deg);
+            position: absolute;
+            bottom: 15px;
+            left: 35%;
+        }
+        .arrow-left-1 {
+            position: absolute;
+            top: 35%;
+            left: 10px;
+        }
+    }

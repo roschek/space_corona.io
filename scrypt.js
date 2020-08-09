@@ -65,7 +65,7 @@ document.querySelector('.arrow-bottom-1').addEventListener('mousedown', moveDown
 document.querySelector('.arrow-left-1').addEventListener('mousedown', moveLeft)
 document.querySelector('.fire').addEventListener('mousedown', createBullet)
 
-setInterval(createEnemy, 1000)
+setInterval(createEnemy, 1500)
 
 document.querySelector('.score').textContent = `ваш счет: ${counter}`
 
