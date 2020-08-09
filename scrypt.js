@@ -8,38 +8,66 @@ ToDo:
 
 const player = document.querySelector('.player')
 const enemy = document.querySelector('.enemy')
+let counter = 0
+
 let lifes = 3
     //случайное число
 function getRandomInt(min, max) {
     let rand = min + Math.random() * (max + 1 - min)
     return Math.floor(rand);
 }
+// функции движения
+function moveTop() {
+    if (player.offsetTop >= 0) {
+        player.style.top = player.offsetTop - 25 + 'px'
+    } else { player.style.top = 0 }
+}
 
+function moveDown() {
+    if (player.offsetTop <= document.body.offsetHeight) {
+        player.style.top = player.offsetTop + 25 + 'px'
+    } else { player.style.top = `${document.body.offsetHeight}px` }
+}
+
+function moveRight() {
+    if (player.offsetLeft <= document.body.clientWidth - 200) { player.style.left = player.offsetLeft + 15 + 'px' } else { player.style.left = document.body.clientWidth - 200 }
+}
+
+function moveLeft() {
+    if (player.offsetLeft >= 0) {
+        player.style.left = player.offsetLeft - 15 + 'px'
+    } else { player.style.left = 0 }
+}
+
+//слушатели движения персонажа
 document.addEventListener('keydown', function(evt) {
     switch (evt.keyCode) {
         case 87: //нажали вверх
-            if (player.offsetTop >= 0) {
-                player.style.top = player.offsetTop - 25 + 'px'
-            } else { player.style.top = 0 }
+            moveTop()
             break;
         case 83: //нажали вниз 
-            player.style.top = player.offsetTop + 25 + 'px'
+            moveDown()
             break;
         case 68: //движение вправо   
-            if (player.offsetLeft <= document.body.clientWidth - 200) { player.style.left = player.offsetLeft + 15 + 'px' } else { player.style.left = document.body.clientWidth - 200 }
+            moveRight()
             break;
         case 65: // движение влево
-            if (player.offsetLeft >= 0) {
-                player.style.left = player.offsetLeft - 15 + 'px'
-            } else { player.style.left = 0 }
+            moveLeft()
             break;
         case 32: //нажали пробел
             createBullet()
             break;
     }
 })
+document.querySelector('.arrow-top-1').addEventListener('mousedown', moveTop)
+document.querySelector('.arrow-right-1').addEventListener('mousedown', moveRight)
+document.querySelector('.arrow-bottom-1').addEventListener('mousedown', moveDown)
+document.querySelector('.arrow-left-1').addEventListener('mousedown', moveLeft)
+document.querySelector('.fire').addEventListener('mousedown', createBullet)
 
-createEnemy()
+setInterval(createEnemy, 1000)
+
+document.querySelector('.score').textContent = `ваш счет: ${counter}`
 
 function createBullet() {
     let bullet = document.createElement('div');
@@ -65,23 +93,27 @@ function bulletMove(bullet) {
 function shot(bullet, timer) {
     let bulletPos = bullet.offsetTop;
     let bulletRight = bullet.offsetLeft;
-    let enemy = document.querySelector('.enemy')
-    if (enemy != null) {
-        let enemyTop = enemy.offsetTop;
-        let enemyBottom = enemy.offsetTop + enemy.offsetHeight;
-        let enemyLeft = enemy.offsetLeft;
-        if (bulletPos >= enemyTop && bulletPos <= enemyBottom && bulletRight >= enemyLeft) {
-            enemy.className = 'boom';
-            enemy.style.top = enemyTop + 'px'
-            enemy.style.left = enemyLeft + 'px'
-            clearInterval(enemy.dataset.timer)
-            setTimeout(function() {
-                enemy.remove()
-                createEnemy()
-                clearInterval(timer)
-            }, 1000)
+    let enemys = document.querySelectorAll('.enemy')
+    enemys.forEach((enemy) => {
+        if (enemy != null) {
+            let enemyTop = enemy.offsetTop;
+            let enemyBottom = enemy.offsetTop + enemy.offsetHeight;
+            let enemyLeft = enemy.offsetLeft;
+            if (bulletPos >= enemyTop && bulletPos <= enemyBottom && bulletRight >= enemyLeft) {
+                enemy.className = 'boom';
+                enemy.style.top = enemyTop + 'px'
+                enemy.style.left = enemyLeft + 'px'
+                counter++;
+                clearInterval(enemy.dataset.timer)
+                setTimeout(function() {
+                    enemy.remove()
+                    clearInterval(timer)
+
+                    document.querySelector('.score').textContent = `ваш счет: ${counter}`
+                }, 1000)
+            }
         }
-    }
+    })
 
 }
 
@@ -97,8 +129,6 @@ function createEnemy() {
             enemy.remove();
             clearInterval(timerId)
             die()
-            createEnemy()
-            console.log(lifes)
         }
         isDie()
     }, 30)
@@ -117,7 +147,7 @@ function die() {
 function endGame() {
     document.body.innerHTML = '';
     document.body.classList.add('body__end')
-    alert('Игра окончена, лучше займись дипломом')
+    alert(`Игра окончена, займись дипломом, твой счет:${counter} несчастных вирусов`)
 }
 
 function isDie() {
