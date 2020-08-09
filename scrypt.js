@@ -8,6 +8,7 @@ ToDo:
 
 const player = document.querySelector('.player')
 const enemy = document.querySelector('.enemy')
+let lifes = 3
     //случайное число
 function getRandomInt(min, max) {
     let rand = min + Math.random() * (max + 1 - min)
@@ -37,7 +38,8 @@ document.addEventListener('keydown', function(evt) {
             break;
     }
 })
-setInterval(createEnemy(), 100)
+
+createEnemy()
 
 function createBullet() {
     let bullet = document.createElement('div');
@@ -94,8 +96,29 @@ function createEnemy() {
         if (enemy.offsetLeft < 0) {
             enemy.remove();
             clearInterval(timerId)
+            die()
             createEnemy()
+            console.log(lifes)
         }
     }, 30)
     enemy.dataset.timer = timerId
+}
+
+function die() {
+    lifes--;
+    if (lifes != 0) {
+        let lifesBlock = document.querySelector('.hearts')
+        let heart = document.querySelector('.heart')
+        lifesBlock.removeChild(heart)
+    } else { endGame() }
+}
+
+function endGame() {
+    document.body.innerHTML = '';
+    document.body.classList.add('body__end')
+
+}
+
+function isDie() {
+
 }
