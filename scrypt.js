@@ -117,7 +117,7 @@ function die() {
 function endGame() {
     document.body.innerHTML = '';
     document.body.classList.add('body__end')
-    alert('Игра окончена, замись дипломом')
+    alert('Игра окончена, лучше займись дипломом')
 }
 
 function isDie() {
