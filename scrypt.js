@@ -100,6 +100,7 @@ function createEnemy() {
             createEnemy()
             console.log(lifes)
         }
+        isDie()
     }, 30)
     enemy.dataset.timer = timerId
 }
@@ -116,9 +117,22 @@ function die() {
 function endGame() {
     document.body.innerHTML = '';
     document.body.classList.add('body__end')
-
+    alert('Игра окончена, замись дипломом')
 }
 
 function isDie() {
+    let enemy = document.querySelector('.enemy')
+    if (enemy.offsetTop > player.offsetTop && enemy.offsetTop < player.offsetTop + player.offsetHeight && enemy.offsetLeft <= player.offsetLeft + player.offsetWidth) {
+        console.log('boom')
+        enemy.className = 'boom';
+        enemy.style.top = (player.offsetTop + 50) + 'px'
+        enemy.style.left = (player.offsetLeft + 50) + 'px'
+        clearInterval(enemy.dataset.timer)
+        setTimeout(function() {
+            enemy.remove()
+            createEnemy()
+        }, 500)
+        die();
+    }
 
 }
